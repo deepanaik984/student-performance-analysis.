@@ -51,7 +51,9 @@ sample data, not real student results.
 ## How to run
 
 pip install pandas matplotlib notebook
+
 jupyter notebook student_performance_analysis_final.ipynb
+
 python student_system.py
 
 Keep student-mat.csv in the same folder as the notebook.
