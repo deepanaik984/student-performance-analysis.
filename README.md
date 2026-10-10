@@ -1,62 +1,70 @@
 # Student Performance Analysis
 
-An analysis of student performance using a real dataset, plus a smaller Python tool for
-managing student records.
+An analysis of secondary school student performance using the UCI Student Performance dataset,
+done in Python (pandas, Matplotlib) in a Jupyter notebook.
 
-## Project 1: Analysis notebook (main project)
+## Dataset
 
-File: student_performance_analysis_final.ipynb
+UCI Student Performance (student-mat.csv): 395 secondary school students from two Portuguese
+schools, mathematics course. The final grade (G3) is scored from 0 to 20.
 
-Dataset: UCI Student Performance (student-mat.csv), 395 secondary school students from
-two Portuguese schools, mathematics course.
+## Questions answered
 
-Questions answered:
 1. Do students with more absences tend to get lower final grades?
 2. How does study time relate to the final grade?
 3. Do students with past failures perform worse?
 4. What share of students pass, and what do students who don't pass have in common?
 
-Key findings:
-- 67.09% of all 395 students passed (final grade of at least 10); 74.23% when the 38
-  students with a final grade of 0 are excluded.
-- All 38 zero-grade students have 0 recorded absences, which hid the absences pattern.
-  Excluding them, absences show a weak negative association with final grade (-0.21).
+## Approach
+
+- Checked the data for missing values, duplicates and zero final grades (none missing, none
+  duplicated, 38 students with a final grade of 0).
+- Defined a pass as a final grade of at least 10. This is my own project rule, not part of the
+  dataset, and I tested how the results change with other pass marks.
+- Compared groups with groupby, calculated correlations and drew charts with Matplotlib.
+- Added a short extra check on whether a low first-period grade flags students who later
+  don't pass.
+
+## Key findings
+
+- 67.09% of all 395 students passed; 74.23% when the 38 students with a final grade of 0 are
+  excluded.
+- All 38 students with a final grade of 0 have 0 recorded absences, which hid the absences
+  pattern. The analyses of absences, study time and past failures therefore use the 357
+  students with a final grade above 0.
+- Among those 357 students, absences show a weak negative association with final grade
+  (correlation -0.21).
 - Past failures show the strongest pattern: average final grade falls from 11.94 (no past
   failures) to 8.27 (three or more).
 - Study time shows only a small, uneven difference in grades.
+- Students who did not pass had more past failures and higher absences than those who passed.
 - A first-period grade below 10 was an early indicator: 34.2% of those students passed,
   compared with 92.3% of those who scored 10 or above.
-- The pass rate depends strongly on the pass mark chosen (about 82% at 8, 67% at 10,
-  41% at 12).
+- The pass rate depends strongly on the pass mark chosen (about 82% at 8, 67% at 10, 41% at 12).
+- ![Absences vs final grade](chart_absences_vs_grade.png)
+  ![Study time](chart_study_time.png)
+  ![Past failures](chart_past_failures.png)
 
-![Absences vs final grade](chart_absences_vs_grade.png)
-![Study time](chart_study_time.png)
-![Past failures](chart_past_failures.png)
+## Limitations
 
-Methods: data checks (missing values, duplicates, zero grades), groupby comparisons,
-correlation, charts with Matplotlib.
+- The data is observational, so the results show associations, not causes.
+- It covers one course (mathematics) in two schools, so it may not apply elsewhere.
+- The pass mark of 10 is my own rule.
+- The reason for the zero final grades is not documented, and some groups are small (for
+  example, 11 and 12 students with two or three past failures).
 
-Limitations: observational data, so associations only; one course in two schools; the pass
-mark of 10 is my own project rule; the reason for the zero grades is not documented.
+## Files
 
-## Project 2: Student management tool
-
-File: student_system.py
-
-A menu-driven Python program (pandas, Matplotlib, CSV) with add, view, search, update and
-delete for student records, input validation, and analysis of averages, pass percentage,
-grade distribution, at-risk students, ranking and correlation. It uses small illustrative
-sample data, not real student results.
+- student_performance_analysis_final.ipynb: the analysis notebook
+- student-mat.csv: the dataset
 
 ## How to run
 
 pip install pandas matplotlib notebook
-
 jupyter notebook student_performance_analysis_final.ipynb
 
-python student_system.py
-
-Keep student-mat.csv in the same folder as the notebook.
+Keep student-mat.csv in the same folder as the notebook. The file uses semicolons as
+separators, so it is loaded with sep=";".
 
 ## Data source and licence
 
